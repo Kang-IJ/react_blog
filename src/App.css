@@ -10,6 +10,19 @@ div {
   padding-left: 20px;
   text-align: left;
   border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+.list h4 {
+  display: inline-block;
+}
+
+.list span {
+  margin: 0 5px;
+}
+
+.list .date {
+  font-weight: normal;
 }
 
 .modal {

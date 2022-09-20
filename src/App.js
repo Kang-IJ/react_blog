@@ -10,6 +10,7 @@ function App() {
   let [like, setLike] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [input, setInput] = useState("");
+  let [listTitleTarget, setListTitleTarget] = useState("");
 
   return (
     <div className="App">
@@ -18,26 +19,32 @@ function App() {
       </div>
       {postTitle.map((posts, i) => {
         return (
-          <div className="list" key={i}>
+          <div
+            className="list"
+            key={i}
+            onClick={(e) => {
+              setListTitleTarget(e.target.textContent);
+            }}
+          >
             <h4
               onClick={() => {
                 setModal(!modal);
               }}
             >
-              {postTitle[i]}{" "}
-              <span
-                onClick={() => {
-                  let copy = [...like];
-                  copy[i] = copy[i] + 1;
-                  setLike(copy);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                👍
-              </span>{" "}
-              {like[i]}{" "}
+              {postTitle[i]}
             </h4>
-            <p>9월 11일 발행</p>
+            <span
+              onClick={(event) => {
+                let copy = [...like];
+                copy[i] = copy[i] + 1;
+                setLike(copy);
+                event.stopPropagation();
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              👍
+            </span>
+            {like[i]} <p className="date">9월 11일 발행</p>
           </div>
         );
       })}
@@ -73,7 +80,9 @@ function App() {
       >
         Add post
       </button>
-      {modal === true ? <Modal postTitle={postTitle} /> : null}
+      {modal === true ? (
+        <Modal postTitle={postTitle} listTitleTarget={listTitleTarget} />
+      ) : null}
     </div>
   );
 }
@@ -81,7 +90,7 @@ function App() {
 function Modal(props, i) {
   return (
     <div className="modal">
-      <h4>{props.postTitle[i]}</h4>
+      <h4>{props.listTitleTarget}</h4>
       <p>날짜</p>
       <p>상세내용</p>
     </div>
