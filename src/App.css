@@ -39,3 +39,7 @@ div {
   color: white;
   padding-left: 20px;
 }
+
+.postTitle {
+  cursor: pointer;
+}

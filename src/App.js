@@ -19,31 +19,46 @@ function App() {
       </div>
       {postTitle.map((posts, i) => {
         return (
-          <div
-            className="list"
-            key={i}
-            onClick={(e) => {
-              setListTitleTarget(e.target.textContent);
-            }}
-          >
+          <div className="list" key={i}>
             <h4
-              onClick={() => {
+              className="postTitle"
+              onClick={(e) => {
                 setModal(!modal);
+                setListTitleTarget(e.target.textContent);
               }}
             >
               {postTitle[i]}
             </h4>
             <span
-              onClick={(event) => {
+              onClick={() => {
                 let copy = [...like];
                 copy[i] = copy[i] + 1;
                 setLike(copy);
-                event.stopPropagation();
               }}
               style={{ cursor: "pointer" }}
             >
               👍
             </span>
+            <span
+              onClick={() => {
+                let copy = [...like];
+                if (copy[i] > 0) {
+                  copy[i] = copy[i] - 1;
+                  setLike(copy);
+                }
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              👎
+            </span>
+            <span
+              onClick={() => {
+                let copy = [...like];
+                copy[i] = copy[i] + 1;
+                setLike(copy);
+              }}
+              style={{ cursor: "pointer" }}
+            ></span>
             {like[i]} <p className="date">9월 11일 발행</p>
           </div>
         );
