@@ -12,6 +12,11 @@ function App() {
   let [input, setInput] = useState("");
   let [listTitleTarget, setListTitleTarget] = useState("");
 
+  let getDate = new Date();
+  let year = getDate.getFullYear();
+  let month = getDate.getMonth() + 1;
+  let date = getDate.getDate();
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -59,23 +64,32 @@ function App() {
               }}
               style={{ cursor: "pointer" }}
             ></span>
-            {like[i]} <p className="date">9월 11일 발행</p>
+            {like[i]}{" "}
+            <p className="date">
+              {year}년 {month}월 {date}일 발행
+            </p>
           </div>
         );
-      })}
+      })}{" "}
+      {/** map 끝나는 부분 */}
       <input
         onChange={(e) => {
           setInput(e.target.value);
         }}
         onKeyPress={(e) => {
-          if (input && e.key === "Enter") {
-            let copy = [...postTitle];
-            copy.push(input);
-            setPostTitle(copy);
+          let dupCheck = [...postTitle];
+          let lastOfDupCheck = dupCheck.pop();
 
-            let likeCopy = [...like];
-            likeCopy.push(0);
-            setLike(likeCopy);
+          if (lastOfDupCheck !== e.target.value) {
+            if (input && e.key === "Enter") {
+              let copy = [...postTitle];
+              copy.push(input);
+              setPostTitle(copy);
+
+              let likeCopy = [...like];
+              likeCopy.push(0);
+              setLike(likeCopy);
+            }
           }
         }}
       />
@@ -96,7 +110,13 @@ function App() {
         Add post
       </button>
       {modal === true ? (
-        <Modal postTitle={postTitle} listTitleTarget={listTitleTarget} />
+        <Modal
+          postTitle={postTitle}
+          listTitleTarget={listTitleTarget}
+          year={year}
+          month={month}
+          date={date}
+        />
       ) : null}
     </div>
   );
@@ -106,7 +126,7 @@ function Modal(props, i) {
   return (
     <div className="modal">
       <h4>{props.listTitleTarget}</h4>
-      <p>날짜</p>
+      <p>날짜</p> {props.year}년 {props.month}월 {props.date}일 발행
       <p>상세내용</p>
     </div>
   );
