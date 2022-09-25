@@ -1,14 +1,9 @@
-.App {
-  /* text-align: center; */
-}
-
 div {
   box-sizing: border-box;
 }
 
 .list {
   padding-left: 20px;
-  text-align: left;
   border-bottom: 1px solid grey;
   font-weight: bold;
 }
@@ -29,7 +24,6 @@ div {
   margin-top: 20px;
   padding: 20px;
   background: #eee;
-  text-align: left;
 }
 
 .black-nav {
@@ -43,6 +37,9 @@ div {
 .postTitle {
   cursor: pointer;
 }
+.input-div {
+  text-align: center;
+}
 
 .input {
   font-size: 16px;
@@ -52,18 +49,37 @@ div {
   border-radius: 0;
   width: 300px;
   height: 20px;
+  text-align: center;
 }
-.input-button {
+.input::placeholder {
+  color: #bbb;
+}
+.button {
   border: 1px solid #aaa;
   width: 100px;
   height: 35px;
   cursor: pointer;
 }
 
-.input-button:hover {
+.button:hover {
   background-color: #ccc;
 }
 
-.input-button:active {
+.button:active {
   background-color: #aaa;
+}
+
+.clear-button {
+  margin-left: 20px;
+  background-color: #ccc;
+}
+.clear-button:hover {
+  background-color: #a9a9a9;
+}
+.clear-button:active {
+  background-color: #909090;
+}
+
+.delete-button {
+  margin-bottom: 20px;
 }

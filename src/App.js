@@ -60,58 +60,88 @@ function App() {
               }}
               style={{ cursor: "pointer" }}
             ></span>
-            {like[i]}{" "}
+            {like[i]}
             <p className="date">
               {year}년 {month}월 {date}일 발행
             </p>
+            <button
+              className="button delete-button"
+              onClick={(e) => {
+                let selectedTitle =
+                  e.target.parentNode.childNodes[0].textContent;
+                if (selectedTitle === postTitle[i]) {
+                  let titleCopy = [...postTitle];
+                  let a = titleCopy.splice(i, 1);
+                  setPostTitle(titleCopy);
+
+                  let likeCopy = [...like];
+                  likeCopy.splice(i, 1);
+                  setLike(likeCopy);
+                }
+              }}
+            >
+              Delete post
+            </button>
           </div>
         );
-      })}{" "}
+      })}
       {/** map 끝나는 부분 */}
-      <input
-        className="input"
-        onChange={(e) => {
-          setInput(e.target.value);
-        }}
-        onKeyPress={(e) => {
-          let dupCheck = [...postTitle];
-          let lastOfDupCheck = dupCheck.pop();
+      <div className="input-div">
+        <input
+          className="input"
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            let dupCheck = [...postTitle];
+            let lastOfDupCheck = dupCheck.pop();
 
-          if (lastOfDupCheck !== e.target.value) {
-            if (input && e.key === "Enter") {
-              let copy = [...postTitle];
-              copy.push(input);
-              setPostTitle(copy);
+            if (lastOfDupCheck !== e.target.value) {
+              if (input && e.key === "Enter") {
+                let copy = [...postTitle];
+                copy.push(input);
+                setPostTitle(copy);
 
-              let likeCopy = [...like];
-              likeCopy.push(0);
-              setLike(likeCopy);
+                let likeCopy = [...like];
+                likeCopy.push(0);
+                setLike(likeCopy);
+              }
             }
-          }
-        }}
-      />
-      <button
-        className="input-button"
-        onClick={() => {
-          let dupCheck = [...postTitle];
-          let lastOfDupCheckButton = dupCheck.pop();
+          }}
+          placeholder="Please enter post titles here"
+        />
+        <button
+          className="button"
+          onClick={() => {
+            let dupCheck = [...postTitle];
+            let lastOfDupCheckButton = dupCheck.pop();
 
-          if (lastOfDupCheckButton !== input) {
-            if (input) {
-              let copy = [...postTitle];
-              copy.push(input);
-              setPostTitle(copy);
-              console.log(copy);
+            if (lastOfDupCheckButton !== input) {
+              if (input) {
+                let copy = [...postTitle];
+                copy.push(input);
+                setPostTitle(copy);
 
-              let likeCopy = [...like];
-              likeCopy.push(0);
-              setLike(likeCopy);
+                let likeCopy = [...like];
+                likeCopy.push(0);
+                setLike(likeCopy);
+              }
             }
-          }
-        }}
-      >
-        Add post
-      </button>
+          }}
+        >
+          Add post
+        </button>
+        <button
+          className="button clear-button"
+          onClick={() => {
+            let emptyArr = [];
+            setPostTitle(emptyArr);
+            setLike(emptyArr);
+          }}
+        >
+          Clear all posts
+        </button>
+      </div>
       {modal === true ? (
         <Modal
           postTitle={postTitle}
@@ -125,7 +155,7 @@ function App() {
   );
 }
 
-function Modal(props, i) {
+function Modal(props) {
   return (
     <div className="modal">
       <h4>{props.listTitleTarget}</h4>
