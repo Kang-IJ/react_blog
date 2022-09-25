@@ -2,12 +2,8 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  let [postTitle, setPostTitle] = useState([
-    "여자 코트 추천",
-    "강남 우동 맛집",
-    "파이썬 독학",
-  ]);
-  let [like, setLike] = useState([0, 0, 0]);
+  let [postTitle, setPostTitle] = useState(["고양이는", "정말로", "귀여워"]);
+  let [like, setLike] = useState([10, 0, 0]);
   let [modal, setModal] = useState(false);
   let [input, setInput] = useState("");
   let [listTitleTarget, setListTitleTarget] = useState("");
@@ -73,6 +69,7 @@ function App() {
       })}{" "}
       {/** map 끝나는 부분 */}
       <input
+        className="input"
         onChange={(e) => {
           setInput(e.target.value);
         }}
@@ -94,16 +91,22 @@ function App() {
         }}
       />
       <button
+        className="input-button"
         onClick={() => {
-          if (input) {
-            let copy = [...postTitle];
-            copy.push(input);
-            setPostTitle(copy);
-            console.log(copy);
+          let dupCheck = [...postTitle];
+          let lastOfDupCheckButton = dupCheck.pop();
 
-            let likeCopy = [...like];
-            likeCopy.push(0);
-            setLike(likeCopy);
+          if (lastOfDupCheckButton !== input) {
+            if (input) {
+              let copy = [...postTitle];
+              copy.push(input);
+              setPostTitle(copy);
+              console.log(copy);
+
+              let likeCopy = [...like];
+              likeCopy.push(0);
+              setLike(likeCopy);
+            }
           }
         }}
       >
@@ -126,7 +129,9 @@ function Modal(props, i) {
   return (
     <div className="modal">
       <h4>{props.listTitleTarget}</h4>
-      <p>날짜</p> {props.year}년 {props.month}월 {props.date}일 발행
+      <p>
+        {props.year}년 {props.month}월 {props.date}일 발행
+      </p>
       <p>상세내용</p>
     </div>
   );
