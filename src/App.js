@@ -7,6 +7,7 @@ function App() {
   let [modal, setModal] = useState(false);
   let [input, setInput] = useState("");
   let [listTitleTarget, setListTitleTarget] = useState("");
+  let [details, setDetails] = useState(["", "", ""]);
 
   let getDate = new Date();
   let year = getDate.getFullYear();
@@ -71,7 +72,7 @@ function App() {
                   e.target.parentNode.childNodes[0].textContent;
                 if (selectedTitle === postTitle[i]) {
                   let titleCopy = [...postTitle];
-                  let a = titleCopy.splice(i, 1);
+                  titleCopy.splice(i, 1);
                   setPostTitle(titleCopy);
 
                   let likeCopy = [...like];
@@ -105,6 +106,8 @@ function App() {
                 let likeCopy = [...like];
                 likeCopy.push(0);
                 setLike(likeCopy);
+
+                e.target.value = "";
               }
             }
           }}
@@ -125,6 +128,8 @@ function App() {
                 let likeCopy = [...like];
                 likeCopy.push(0);
                 setLike(likeCopy);
+
+                setInput();
               }
             }
           }}
@@ -142,13 +147,15 @@ function App() {
           Clear all posts
         </button>
       </div>
-      {modal === true ? (
+      {modal === true && postTitle ? (
         <Modal
           postTitle={postTitle}
           listTitleTarget={listTitleTarget}
           year={year}
           month={month}
           date={date}
+          details={details}
+          setModal={setModal}
         />
       ) : null}
     </div>
@@ -156,13 +163,27 @@ function App() {
 }
 
 function Modal(props) {
+  let postTitleCopy = [...props.postTitle];
+
   return (
     <div className="modal">
+      <button
+        className="button close-modal-button"
+        onClick={() => {
+          let falseState = false;
+          props.setModal(falseState);
+        }}
+      >
+        close
+      </button>
       <h4>{props.listTitleTarget}</h4>
       <p>
         {props.year}년 {props.month}월 {props.date}일 발행
       </p>
       <p>상세내용</p>
+      <p className="details">{props.details}</p>
+      <input className="input" placeholder="Please enter details here" />
+      <button className="button detail-button">Add details</button>
     </div>
   );
 }

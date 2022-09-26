@@ -55,6 +55,7 @@ div {
   color: #bbb;
 }
 .button {
+  margin-right: 20px;
   border: 1px solid #aaa;
   width: 100px;
   height: 35px;
@@ -69,14 +70,18 @@ div {
   background-color: #aaa;
 }
 
-.clear-button {
-  margin-left: 20px;
+.clear-button,
+.detail-button,
+.close-modal-button {
   background-color: #ccc;
 }
-.clear-button:hover {
+.clear-button:hover,
+.detail-button:hover,
+.close-modal-button:hover {
   background-color: #a9a9a9;
 }
-.clear-button:active {
+.clear-button:active,
+.detail-button:active {
   background-color: #909090;
 }
 
