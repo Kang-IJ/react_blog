@@ -10,6 +10,7 @@ div {
 
 .list h4 {
   display: inline-block;
+  margin: 15px 0 0 0;
 }
 
 .list span {
@@ -24,6 +25,12 @@ div {
   margin-top: 20px;
   padding: 20px;
   background: #eee;
+}
+
+.detail-paragraph {
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .black-nav {

@@ -7,7 +7,8 @@ function App() {
   let [modal, setModal] = useState(false);
   let [input, setInput] = useState("");
   let [listTitleTarget, setListTitleTarget] = useState("");
-  let [details, setDetails] = useState(["", "", ""]);
+  let [details, setDetails] = useState("");
+  let [detailInput, setDetailInput] = useState("");
 
   let getDate = new Date();
   let year = getDate.getFullYear();
@@ -98,7 +99,7 @@ function App() {
             let lastOfDupCheck = dupCheck.pop();
 
             if (lastOfDupCheck !== e.target.value) {
-              if (input && e.key === "Enter") {
+              if (e.target.value && e.key === "Enter") {
                 let copy = [...postTitle];
                 copy.push(input);
                 setPostTitle(copy);
@@ -108,6 +109,7 @@ function App() {
                 setLike(likeCopy);
 
                 e.target.value = "";
+                console.log(details);
               }
             }
           }}
@@ -128,8 +130,6 @@ function App() {
                 let likeCopy = [...like];
                 likeCopy.push(0);
                 setLike(likeCopy);
-
-                setInput();
               }
             }
           }}
@@ -154,8 +154,11 @@ function App() {
           year={year}
           month={month}
           date={date}
-          details={details}
           setModal={setModal}
+          details={details}
+          setDetails={setDetails}
+          detailInput={detailInput}
+          setDetailInput={setDetailInput}
         />
       ) : null}
     </div>
@@ -174,16 +177,43 @@ function Modal(props) {
           props.setModal(falseState);
         }}
       >
-        close
+        Close
       </button>
       <h4>{props.listTitleTarget}</h4>
       <p>
         {props.year}년 {props.month}월 {props.date}일 발행
       </p>
-      <p>상세내용</p>
+      <p className="detail-paragraph">상세내용</p>
+
       <p className="details">{props.details}</p>
-      <input className="input" placeholder="Please enter details here" />
-      <button className="button detail-button">Add details</button>
+      <input
+        className="input"
+        placeholder="Please enter details here"
+        onChange={(e) => {
+          props.setDetailInput(e.target.value);
+        }}
+        onKeyPress={(e) => {
+          if (e.target.value && e.key === "Enter") {
+            let copyDetails = "";
+            copyDetails = props.detailInput;
+            props.setDetails(copyDetails);
+
+            e.target.value = "";
+          }
+        }}
+      />
+      <button
+        className="button detail-button"
+        onClick={() => {
+          if (props.detailInput) {
+            let copyDetails = "";
+            copyDetails = props.detailInput;
+            props.setDetails(copyDetails);
+          }
+        }}
+      >
+        Add details
+      </button>
     </div>
   );
 }
